@@ -1,0 +1,11 @@
+@use 'sass:math';
+@import './tokens.scss';
+@import './mixins.scss';
+
+:root {
+  font-size: $root-size * 1px
+}
+
+body {
+  font-size: 1rem;
+}

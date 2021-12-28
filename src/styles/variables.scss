@@ -1,0 +1,53 @@
+:root {
+  --color: #000;
+
+  --label-color-secondary: rgba(60, 60, 67, 0.6);
+  --label-color-tertiary: rgba(60, 60, 67, 0.3);
+  
+  --background-color: rgb(255, 255, 255);
+  --background-color-secondary: rgb(242, 242, 247);
+  --background-color-inert: rgba(249, 249, 249, 0.6);
+  
+  --separator-color-opaque: #c6c6c8;
+  --separator-color-non-opaque: rgba(60, 60, 67, 0.36);
+  
+  --fill-color-primary: rgba(120, 120, 128, 0.2);
+  --fill-color-tertiary: rgba(118, 118, 128, 0.12);
+  --fill-color-quaternary: rgba(116, 116, 128, 0.08);
+  
+  --material-background-chrome: rgba(247, 247, 247, 0.8);
+  --material-background-chrome-solid: rgb(247, 247, 247);
+
+  --green: #34c759;
+  --red: #ff3b30;
+  --blue: #007aff;
+  --theme-color: var(--blue);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color: #fff;
+
+    --label-color-secondary: rgba(235, 235, 245, 0.6);
+    --label-color-tertiary: rgba(235, 235, 245, 0.3);
+
+    --background-color: rgb(0, 0, 0);
+    --background-color-secondary: rgb(28, 28, 30);
+    --background-color-inert: rgba(29, 29, 29, 0.6);
+
+    --separator-color-opaque: #38383a;
+    --separator-color-non-opaque: rgba(84, 84, 88, 0.65);
+    
+    --fill-color-primary: rgba(120, 120, 128, 0.36);
+    --fill-color-tertiary: rgba(118, 118, 128, 0.24);
+    --fill-color-quaternary: rgba(116, 116, 128, 0.18);
+
+    --material-background-chrome: rgba(22, 22, 22, 0.8);
+    --material-background-chrome-solid: rgba(22, 22, 22);
+
+    --green: #32d74b;
+    --red: #ff453a;
+    --blue: #0a84ff;
+    --theme-color: var(--blue);
+  }
+}
