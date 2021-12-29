@@ -99,7 +99,6 @@ $top: rem(6);
 
   .title {
     font-weight: bold;
-    text-transform: capitalize;
   }
 
   &:not(.large) {

@@ -1,14 +1,55 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component" />
-    </keep-alive>
-  </router-view>
+  <screen-view
+    v-for="view in views"
+    :key="view.name"
+    v-bind="view"
+    @close="handleClose"
+  />
 </template>
 
 <script>
+import screenView from './components/screen-view.vue';
+import { markRaw } from 'vue';
+
 export default {
   name: 'App',
+  components: {
+    screenView,
+  },
+  data() {
+    return {
+      views: [],
+    };
+  },
+  watch: {
+    ['$route.matched'](matched) {
+      matched.forEach((route, index) => {
+        const { components, name, meta } = route;
+
+        const data = {
+          component: markRaw(components.default),
+          index,
+          meta,
+          name,
+        };
+
+        if (!this.views[index]) {
+          this.views.push(data);
+        }
+      });
+
+      const max = matched.length;
+
+      if (this.views.length > max) {
+        this.views[max] = {
+          ...this.views[max],
+          close: true,
+        };
+
+        this.views.splice(max + 1);
+      }
+    },
+  },
   mounted() {
     document.documentElement.style.setProperty(
       '--inertScale',
@@ -48,6 +89,9 @@ export default {
     //     { passive: false }
     //   );
     // },
+    handleClose(name, index) {
+      this.views.splice(index);
+    },
   },
 };
 </script>

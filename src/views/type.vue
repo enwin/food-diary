@@ -1,16 +1,17 @@
 <template>
-  <main id="type" class="screen" :class="classNames">
+  <main id="type">
     <navigation-bar>
-      <template #title>Types</template>
+      <template #title>Time of Day</template>
       <template #left>
-        <control-button @click="cancel">Cancel</control-button>
+        <control-button direction="backward" @click="cancel"
+          >New Meal</control-button
+        >
       </template>
     </navigation-bar>
   </main>
 </template>
 
 <script>
-import ScreenBase from '../components/screen.vue';
 import ControlButton from '../components/control-button.vue';
 import NavigationBar from '../components/navigation-bar.vue';
 
@@ -20,22 +21,10 @@ export default {
     ControlButton,
     NavigationBar,
   },
-  extends: ScreenBase,
-  computed: {
-    classNames() {
-      const classes = [];
-
-      if (this.mode) {
-        classes.push(this.mode);
-      }
-
-      return classes;
-    },
-  },
   methods: {
     cancel() {
       this.$router.replace({
-        name: 'AddScreen',
+        name: 'Add',
       });
     },
   },

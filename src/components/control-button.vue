@@ -20,12 +20,17 @@
   </component>
 </template>
 <script>
+const directions = ['', 'backward', 'forward'];
+
 export default {
   name: 'ControlButton',
   props: {
     direction: {
       type: String,
       default: '',
+      validate(value) {
+        return directions.includes(value);
+      },
     },
     disabled: {
       type: Boolean,

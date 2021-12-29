@@ -8,19 +8,19 @@ const routes = [
   {
     path: '/',
     component: Home,
-    name: 'HomePage',
+    name: 'Home',
     children: [
       {
         path: 'add',
         component: Add,
-        name: 'AddScreen',
+        name: 'Add',
         children: [
           {
             path: 'type',
             component: Type,
-            name: 'TypeScreen',
+            name: 'Type',
             meta: {
-              mode: 'slide',
+              mode: 'overlay',
             },
           },
         ],
