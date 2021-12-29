@@ -100,6 +100,14 @@ export default {
 @import '/src/styles/reset';
 @import '/src/styles/variables';
 
+:root {
+  font-size: $root-size * 1px;
+}
+
+body {
+  font-size: 1rem;
+}
+
 body {
   background-color: var(--background-color);
   color: var(--color);
