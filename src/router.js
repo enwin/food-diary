@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import { addStore } from './store/add';
+
 import Home from './views/home.vue';
 import Add from './views/add.vue';
 import Type from './views/type.vue';
@@ -21,11 +23,13 @@ const routes = [
             name: 'Type',
             meta: {
               mode: 'overlay',
+              store: addStore,
             },
           },
         ],
         meta: {
           mode: 'overlay',
+          store: addStore,
         },
       },
     ],

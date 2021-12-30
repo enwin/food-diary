@@ -41,30 +41,8 @@ import NavigationBar from '../components/navigation-bar.vue';
 import InputLink from '../components/input-link.vue';
 import InputText from '../components/input-text.vue';
 import FormGroup from '../components/form-group.vue';
-import { markRaw } from 'vue';
-
-const types = [
-  {
-    label: 'Breakfast',
-    value: 0,
-    range: [new Date().setHours(6, 30, 0), new Date().setHours(11, 30, 0)],
-  },
-  {
-    label: 'Lunch',
-    value: 1,
-    range: [new Date().setHours(11, 30, 1), new Date().setHours(15, 30, 0)],
-  },
-  {
-    label: 'Dinner',
-    value: 2,
-    range: [new Date().setHours(19, 30, 0), new Date().setHours(22, 30, 0)],
-  },
-  {
-    label: 'Snack',
-    value: 3,
-    range: [],
-  },
-];
+import { useRoute } from 'vue-router';
+import { storeToRefs } from 'pinia';
 
 export default {
   name: 'AddScreen',
@@ -75,47 +53,26 @@ export default {
     InputText,
     FormGroup,
   },
-  // extends: ScreenBase,
-  data() {
-    const now = Date.now();
-    let type = types.findIndex(({ range }) => {
-      const [start, end] = range;
+  setup() {
+    const route = useRoute();
+    const store = route.meta.store();
 
-      if (start <= now && now <= end) {
-        return true;
-      }
-    });
-
-    if (type === -1) {
-      type = 3;
-    }
+    const { name, type, ingredients } = storeToRefs(store);
 
     return {
-      name: '',
-      ingredients: '',
-      type: type.toString(),
-      types: markRaw(
-        types.map((type) => {
-          const { range, ...typeData } = type;
-
-          return typeData;
-        })
-      ),
+      store,
+      name,
+      type,
+      ingredients,
     };
   },
   computed: {
-    classNames() {
-      const classes = [];
-
-      if (this.mode) {
-        classes.push(this.mode);
-      }
-
-      return classes;
-    },
     currentType() {
-      return this.types[this.type].label;
+      return this.store.currentType;
     },
+  },
+  beforeUnmount() {
+    this.store.$reset();
   },
   methods: {
     add() {
