@@ -7,6 +7,7 @@
       :class="classNames"
       :aria-hidden="disabled || null"
       :inert="disabled || null"
+      tabindex="-1"
     />
   </transition>
 </template>
