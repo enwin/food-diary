@@ -24,8 +24,8 @@ body {
 html,
 body {
   /* mobile viewport bug fix */
-  height: fill-available;
-  min-height: fill-available;
+  height: stretch;
+  min-height: stretch;
   overflow: hidden;
 }
 
