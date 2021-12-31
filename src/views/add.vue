@@ -1,7 +1,7 @@
 <template>
   <main id="add">
     <navigation-bar>
-      <template #title>New Meal</template>
+      <template #title>{{ title }}</template>
       <template #left>
         <control-button @click="cancel">Cancel</control-button>
       </template>
@@ -10,13 +10,6 @@
       </template>
     </navigation-bar>
     <form>
-      <input-link
-        v-model="type"
-        label="Time of Day"
-        :label-value="currentType"
-        :to="{ name: 'Type' }"
-        name="type"
-      />
       <form-group legend="Details" compressed>
         <input-text
           v-model="name"
@@ -31,6 +24,25 @@
           name="ingredients"
         />
       </form-group>
+      <form-group legend="Effect" compressed>
+        <input-link
+          v-model="swallowing"
+          :label="effectLabel"
+          :label-value="swallowing"
+          :to="effectLink"
+          name="type"
+        />
+      </form-group>
+      <form-group legend="Time" compressed>
+        <input-link
+          v-model="type"
+          :label="typeLabel"
+          :label-value="currentType"
+          :to="typeLink"
+          name="type"
+        />
+        <input-date v-model="today" label="Date" name="date" />
+      </form-group>
     </form>
   </main>
 </template>
@@ -38,6 +50,7 @@
 <script>
 import ControlButton from '../components/control-button.vue';
 import NavigationBar from '../components/navigation-bar.vue';
+import InputDate from '../components/input-date.vue';
 import InputLink from '../components/input-link.vue';
 import InputText from '../components/input-text.vue';
 import FormGroup from '../components/form-group.vue';
@@ -49,6 +62,7 @@ export default {
   components: {
     ControlButton,
     NavigationBar,
+    InputDate,
     InputLink,
     InputText,
     FormGroup,
@@ -57,18 +71,56 @@ export default {
     const route = useRoute();
     const store = route.meta.store();
 
-    const { name, type, ingredients } = storeToRefs(store);
+    const { ingredients, name, swallowingLevel, today, type } =
+      storeToRefs(store);
 
     return {
-      store,
-      name,
-      type,
       ingredients,
+      name,
+      routeName: route.name,
+      store,
+      swallowingLevel,
+      today,
+      type,
+    };
+  },
+  data() {
+    return {
+      title: 'New Meal',
+      effectLabel: 'Swallowing',
+      typeLabel: 'Time of Day',
     };
   },
   computed: {
     currentType() {
       return this.store.currentType;
+    },
+    effectLink() {
+      return {
+        name: 'Effect',
+        params: {
+          parentTitle: this.title,
+          parentName: this.routeName,
+          title: this.effectLabel,
+          valuesKey: 'swallowing',
+          valueKey: 'swallowingLevel',
+        },
+      };
+    },
+    swallowing() {
+      return this.store.swallowingType;
+    },
+    typeLink() {
+      return {
+        name: 'Type',
+        params: {
+          parentTitle: this.title,
+          parentName: this.routeName,
+          title: this.typeLabel,
+          valuesKey: 'types',
+          valueKey: 'type',
+        },
+      };
     },
   },
   beforeUnmount() {

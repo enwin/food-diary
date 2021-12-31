@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia';
 import { markRaw } from 'vue';
 
-export const addStore = defineStore('meal', {
+const swallowTypes = ['Normal', 'Reduced', 'Blocked but pushed', 'Blocked'];
+
+export const addMeal = defineStore('meal', {
   state: () => {
-    const now = Date.now();
+    const today = new Date();
+    const now = today.getTime();
     const types = [
       {
         label: 'Breakfast',
@@ -40,7 +43,17 @@ export const addStore = defineStore('meal', {
     return {
       name: '',
       ingredients: '',
+      today: today.toISOString().split('T')[0],
       type,
+      swallowingLevel: '0',
+      swallowing: markRaw(
+        swallowTypes.map((label, index) => {
+          return {
+            label,
+            value: index,
+          };
+        })
+      ),
       types: markRaw(
         types.map((type) => {
           const { range, ...typeData } = type;
@@ -53,6 +66,9 @@ export const addStore = defineStore('meal', {
   getters: {
     currentType(state) {
       return state.types[state.type].label;
+    },
+    swallowingType(state) {
+      return state.swallowing[state.swallowingLevel].label;
     },
   },
 });

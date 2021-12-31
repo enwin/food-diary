@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { addStore } from './store/add';
+import { addMeal } from './store/meal';
 
 import Home from './views/home.vue';
 import Add from './views/add.vue';
-import Type from './views/type.vue';
+import ModalSelect from './views/modal-select.vue';
 
 const routes = [
   {
@@ -19,17 +19,28 @@ const routes = [
         children: [
           {
             path: 'type',
-            component: Type,
+            component: ModalSelect,
             name: 'Type',
+            props: true,
             meta: {
               mode: 'overlay',
-              store: addStore,
+              store: addMeal,
+            },
+          },
+          {
+            path: 'effect',
+            component: ModalSelect,
+            name: 'Effect',
+            props: true,
+            meta: {
+              mode: 'overlay',
+              store: addMeal,
             },
           },
         ],
         meta: {
           mode: 'overlay',
-          store: addStore,
+          store: addMeal,
         },
       },
     ],

@@ -8,6 +8,7 @@
       :aria-hidden="disabled || null"
       :inert="disabled || null"
       tabindex="-1"
+      v-bind="routeProps"
     />
   </transition>
 </template>
@@ -75,6 +76,13 @@ export default {
       }
 
       return undefined;
+    },
+    routeProps() {
+      if (this.$route.matched[this.index].props) {
+        return this.$route.params;
+      }
+
+      return {};
     },
     transitionName() {
       const previousView = this.$route.matched[this.index - 1];

@@ -1,11 +1,11 @@
 <template>
   <main id="type">
     <navigation-bar>
-      <template #title>Time of Day</template>
+      <template #title>{{ title }}</template>
       <template #left>
-        <control-button direction="backward" @click="back"
-          >New Meal</control-button
-        >
+        <control-button direction="backward" @click="back">{{
+          parentTitle
+        }}</control-button>
       </template>
     </navigation-bar>
     <form>
@@ -13,7 +13,7 @@
         v-model="value"
         legend="Type"
         compressed
-        :values="types"
+        :values="values"
         name="type"
       />
     </form>
@@ -34,15 +34,37 @@ export default {
     NavigationBar,
     RadioGroup,
   },
-  setup() {
+  props: {
+    parentName: {
+      type: String,
+      required: true,
+    },
+    parentTitle: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    valueKey: {
+      type: String,
+      required: true,
+    },
+    valuesKey: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const route = useRoute();
     const store = route.meta.store();
 
-    const { type, types } = storeToRefs(store);
-
+    const refs = storeToRefs(store);
+    console.log(refs, props);
     return {
-      value: type,
-      types,
+      value: refs[props.valueKey],
+      values: refs[props.valuesKey],
     };
   },
   watch: {
@@ -53,7 +75,7 @@ export default {
   methods: {
     back() {
       this.$router.replace({
-        name: 'Add',
+        name: this.parentName,
       });
     },
   },
