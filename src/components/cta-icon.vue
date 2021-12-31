@@ -41,9 +41,9 @@ export default {
 
 <style lang="scss">
 .cta-icon {
+  border-radius: 5px;
   height: rem(44);
   width: rem(44);
-  border-radius: 5px;
 
   span {
     @include hide();

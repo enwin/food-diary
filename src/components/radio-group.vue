@@ -114,7 +114,7 @@ export default {
   }
 
   svg {
-    color: var(--theme-color);
+    color: var(--color-accent);
     display: none;
     width: rem(14);
     position: absolute;

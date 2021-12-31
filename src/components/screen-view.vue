@@ -104,12 +104,12 @@ export default {
 
 <style lang="scss">
 .screen {
-  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
+  min-height: 100%;
+  outline: none;
   padding-top: env(safe-area-inset-top);
   position: relative;
-  min-height: 100%;
   transform-origin: 50% 0;
   transition: all $duration $easing;
   z-index: 1;
@@ -124,6 +124,7 @@ export default {
   }
 
   &.mode-overlay {
+    background-color: var(--background-elevated);
     border-radius: 10px 10px 0 0;
     height: calc(100vh - #{rem(54)});
     left: 0;

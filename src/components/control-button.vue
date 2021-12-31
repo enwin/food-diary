@@ -109,7 +109,7 @@ export default {
   background: none;
   border: 0;
   border-radius: 5px;
-  color: var(--blue);
+  color: var(--color-accent);
   display: flex;
   font-size: rem(16);
   font: -apple-system-headline;
@@ -121,7 +121,7 @@ export default {
 
   &:hover,
   &:active {
-    color: var(--blue);
+    color: var(--color-accent);
   }
 
   svg {
@@ -151,6 +151,6 @@ export default {
 
 button.navigation-button[disabled],
 a.navigation-button:not([href]) {
-  color: var(--fill-color-primary);
+  color: var(--label-color-tertiary);
 }
 </style>

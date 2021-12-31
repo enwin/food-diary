@@ -52,8 +52,6 @@ export default {
 <style lang="scss">
 .input-link {
   align-items: center;
-  background-color: var(--fill-color-quaternary);
-  border-radius: 10px;
   display: flex;
   height: rem(45);
   justify-content: space-between;
@@ -73,7 +71,6 @@ export default {
     top: 50%;
     transform: translateY(-50%) scale(-1);
     width: rem(18);
-    color: var(--label-color-tertiary);
   }
 }
 </style>

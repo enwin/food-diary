@@ -104,23 +104,24 @@ export default {
 $height: rem(45);
 
 .input-text {
+  --color-placeholder: var(--label-color-tertiary);
   align-items: center;
-  background-color: rgba(var(--background-color-secondary), 0.94);
   display: flex;
   height: $height;
   justify-content: space-between;
+  padding-left: rem(16);
   position: relative;
 
   input {
     background: none;
     border: 0;
-    caret-color: var(--theme-color);
-    padding: 0 rem(16);
+    caret-color: var(--color-theme);
     height: $height;
+    padding-right: rem(16);
     width: 100%;
 
     &::placeholder {
-      color: var(--label-color-tertiary);
+      color: var(--color-placeholder);
     }
   }
 
@@ -133,17 +134,17 @@ $height: rem(45);
 
   &.variant-placeholder {
     label {
-      color: var(--label-color-tertiary);
-      left: 0;
+      color: var(--color-placeholder);
       line-height: $height;
       position: absolute;
       top: 0;
+      pointer-events: none;
     }
-  }
 
-  &.filled {
-    label {
-      opacity: 0;
+    &.filled {
+      label {
+        opacity: 0;
+      }
     }
   }
 
@@ -173,7 +174,7 @@ $height: rem(45);
   }
 
   svg {
-    color: var(--label-color-tertiary);
+    color: var(--label-color-secondary);
     margin-right: rem(22);
     width: rem(14);
   }

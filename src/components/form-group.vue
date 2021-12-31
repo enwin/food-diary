@@ -42,17 +42,15 @@ export default {
 }
 
 .form-group-wrapper {
-  background-color: var(--fill-color-quaternary);
+  background-color: var(--color-grey5);
   padding-left: rem(16);
   border-radius: 10px;
 
-  .input-text:not(:last-of-type) {
-    border-bottom: 1px solid var(--separator-color-opaque);
-  }
+  > [class*='input-'] {
+    padding-left: 0;
 
-  .input-text {
-    input {
-      padding-left: 0;
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--separator-color-opaque);
     }
   }
 }

@@ -89,10 +89,12 @@ export default {
 
 <style lang="scss">
 #add {
-  background-color: var(--material-background-chrome-solid);
+  .navigation-bar {
+    flex-shrink: 0;
+  }
 
-  form > .input-link {
-    margin: rem(35) rem(16) 0;
+  form {
+    min-height: 100%;
   }
 }
 </style>

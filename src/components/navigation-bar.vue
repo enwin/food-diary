@@ -63,6 +63,7 @@ export default {
 $top: rem(6);
 
 .navigation-bar {
+  background-color: var(--background-chrome-navigation);
   border-radius: 10px 10px 0 0;
   font-size: rem(17);
   line-height: div(22, 17);
@@ -72,7 +73,7 @@ $top: rem(6);
   position: relative;
 
   .controls {
-    color: var(--blue);
+    color: var(--color-accent);
     display: flex;
     padding: 0 rem(10);
 
@@ -102,7 +103,6 @@ $top: rem(6);
   }
 
   &:not(.large) {
-    background-color: var(--material-background-chrome);
     backdrop-filter: blur(20px) saturate(100%);
     -webkit-backdrop-filter: blur(20px) saturate(100%);
 
