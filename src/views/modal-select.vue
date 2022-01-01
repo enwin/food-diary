@@ -3,9 +3,9 @@
     <navigation-bar>
       <template #title>{{ title }}</template>
       <template #left>
-        <control-button direction="backward" @click="back">{{
+        <control-label direction="backward" @click="back">{{
           parentTitle
-        }}</control-button>
+        }}</control-label>
       </template>
     </navigation-bar>
     <form>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ControlButton from '../components/control-button.vue';
+import ControlLabel from '../components/control-label.vue';
 import NavigationBar from '../components/navigation-bar.vue';
 import RadioGroup from '../components/radio-group.vue';
 import { useRoute } from 'vue-router';
@@ -30,7 +30,7 @@ import { storeToRefs } from 'pinia';
 export default {
   name: 'TypeScreen',
   components: {
-    ControlButton,
+    ControlLabel,
     NavigationBar,
     RadioGroup,
   },
@@ -61,7 +61,7 @@ export default {
     const store = route.meta.store();
 
     const refs = storeToRefs(store);
-    console.log(refs, props);
+
     return {
       value: refs[props.valueKey],
       values: refs[props.valuesKey],
@@ -74,9 +74,13 @@ export default {
   },
   methods: {
     back() {
-      this.$router.replace({
-        name: this.parentName,
-      });
+      if (navigator.standalone) {
+        this.$router.replace({
+          name: this.parentName,
+        });
+      } else {
+        this.$router.back();
+      }
     },
   },
 };

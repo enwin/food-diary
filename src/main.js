@@ -1,18 +1,12 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import router from './router';
+import store from './store';
 import App from './App.vue';
-
-// force push to use replace
-router._push = router.push;
-router.push = function (...args) {
-  return router.replace(...args);
-};
 
 const app = createApp(App);
 
 app.use(router);
-app.use(createPinia());
+app.use(store);
 
 app.config.devtools = import.meta.env.MODE === 'development';
 

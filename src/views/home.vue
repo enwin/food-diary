@@ -11,11 +11,20 @@
         </cta-icon>
       </template>
     </navigation-bar>
+
+    <div class="content">
+      <ul>
+        <li v-for="meal in meals" :key="meal.name">{{ meal.name }}</li>
+      </ul>
+    </div>
   </main>
 </template>
 <script>
 import CtaIcon from '../components/cta-icon.vue';
 import NavigationBar from '../components/navigation-bar.vue';
+import { userStore } from '../store/user';
+import { mealsStore } from '../store/meals';
+import { mapState } from 'pinia';
 
 export default {
   name: 'HomePage',
@@ -23,17 +32,14 @@ export default {
     CtaIcon,
     NavigationBar,
   },
-  // extends: ScreenBase,
-  // computed: {
-  //   classNames() {
-  //     const classes = [];
-
-  //     if (this.mode) {
-  //       classes.push(this.mode);
-  //     }
-
-  //     return classes;
-  //   },
-  // },
+  computed: {
+    ...mapState(userStore, ['access_token', 'account_id']),
+    ...mapState(mealsStore, ['meals']),
+  },
+  created() {
+    if (!this.access_token) {
+      this.$router.replace({ name: 'Login' });
+    }
+  },
 };
 </script>

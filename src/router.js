@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { addMeal } from './store/meal';
 
 import Home from './views/home.vue';
+import Auth from './views/auth.vue';
 import Add from './views/add.vue';
+import Login from './views/login.vue';
 import ModalSelect from './views/modal-select.vue';
 
 const routes = [
@@ -45,9 +47,29 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/auth',
+    component: Auth,
+    name: 'Auth',
+  },
+  {
+    path: '/login',
+    component: Login,
+    name: 'Login',
+  },
 ];
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+if (navigator.standalone) {
+  // force push to use replace
+  router._push = router.push;
+  router.push = function (...args) {
+    return router.replace(...args);
+  };
+}
+
+export default router;

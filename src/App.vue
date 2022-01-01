@@ -25,6 +25,7 @@ export default {
     ['$route.matched'](matched) {
       matched.forEach((route, index) => {
         const { components, name, meta } = route;
+        const routeEntry = this.views[index];
 
         const data = {
           component: markRaw(components.default),
@@ -33,8 +34,10 @@ export default {
           name,
         };
 
-        if (!this.views[index]) {
+        if (!routeEntry) {
           this.views.push(data);
+        } else if (routeEntry.name !== name) {
+          this.views.splice(index, 1, data);
         }
       });
 

@@ -8,6 +8,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "dropbox": "^10.23.0",
     "pinia": "^2.0.9",
     "sass": "^1.45.1",
     "vue": "^3.2.25",

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import ControlButton from '../components/control-button.vue';
+import ControlButton from '../components/control-label.vue';
 import NavigationBar from '../components/navigation-bar.vue';
 import InputDate from '../components/input-date.vue';
 import InputLink from '../components/input-link.vue';
@@ -131,9 +131,13 @@ export default {
       this.cancel();
     },
     cancel() {
-      this.$router.replace({
-        name: 'Home',
-      });
+      if (navigator.standalone) {
+        this.$router.replace({
+          name: 'Home',
+        });
+      } else {
+        this.$router.back();
+      }
     },
   },
 };

@@ -1,156 +1,97 @@
 <template>
   <component
     :is="node"
-    class="navigation-button"
-    :class="classes"
+    class="control-button"
+    :class="[variant]"
     v-bind="attributes"
   >
-    <svg
-      v-if="direction"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 30 44"
-    >
-      <path
-        d="M9.31 22a1.12 1.12 0 00.36.84l8.56 8.31a1.16 1.16 0 002-.81 1.24 1.24 0 00-.33-.83L12.14 22l7.74-7.53a1.2 1.2 0 00.33-.83A1.14 1.14 0 0019 12.5a1.17 1.17 0 00-.82.34l-8.51 8.31a1.18 1.18 0 00-.36.85z"
-      />
-    </svg>
     <span>
       <slot name="default" />
     </span>
   </component>
 </template>
 <script>
-const directions = ['', 'backward', 'forward'];
-
 export default {
   name: 'ControlButton',
   props: {
-    direction: {
-      type: String,
-      default: '',
-      validate(value) {
-        return directions.includes(value);
-      },
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     external: {
       type: Boolean,
       default: false,
-    },
-    link: {
-      type: [String, Object],
-      default: '',
     },
     type: {
       type: String,
       default: 'button',
     },
+    link: {
+      type: [String, Object],
+      default: '',
+    },
+    variant: {
+      type: String,
+      default: 'action',
+    },
   },
   computed: {
     attributes() {
-      let attributes;
-
       if (!this.link) {
-        attributes = {
+        return {
           type: this.type,
         };
-
-        if (this.disabled) {
-          attributes.disabled = true;
-        }
-      } else if (!this.disabled) {
-        if (this.external) {
-          attributes = {
-            href: this.link,
-            target: '_blank',
-            rel: 'noreferrer noopener',
-          };
-        } else {
-          attributes = {
-            to: {
-              ...this.link,
-              replace: true,
-            },
-          };
-        }
       }
 
-      return attributes;
-    },
-    classes() {
-      const classes = [];
-
-      if (this.direction) {
-        classes.push(`direction-${this.direction}`);
+      if (this.external) {
+        return {
+          href: this.link,
+          target: '_blank',
+          rel: 'noreferrer noopener',
+        };
       }
 
-      return classes;
+      return {
+        to: {
+          ...this.link,
+          replace: true,
+        },
+      };
     },
     node() {
-      if (this.link) {
-        if (this.external || this.disabled) {
-          return 'a';
-        }
-
-        return 'router-link';
-      }
-
-      return 'button';
+      return this.link ? (this.external ? 'a' : 'router-link') : 'button';
     },
   },
 };
 </script>
 <style lang="scss">
-.navigation-button {
+.control-button {
   align-items: center;
-  background: none;
-  border: 0;
-  border-radius: 5px;
-  color: var(--color-accent);
-  display: flex;
-  font-size: rem(16);
+  background-color: var(--color-theme);
+  border-radius: 8px;
+  border-width: 0;
+  color: var(--label-color-primary);
+  display: inline-flex;
+  font-size: rem(15);
+  font-weight: bold;
   font: -apple-system-headline;
-  height: rem(44);
+  justify-content: center;
   line-height: div(22, 15);
-  padding: 0 rem(6);
-  position: relative;
+  padding: 0 rem(16);
   text-decoration: none;
+  text-transform: uppercase;
 
-  &:hover,
-  &:active {
-    color: var(--color-accent);
+  &.action {
+    min-width: rem(72);
+    height: rem(27);
   }
 
-  svg {
-    position: absolute;
-    height: rem(44);
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  &.direction-forward {
-    padding-right: rem(20);
-
-    svg {
-      right: rem(-9);
-      transform: translateY(-50%) scale(-1, 1);
-    }
-  }
-
-  &.direction-backward {
-    padding-left: rem(20);
-
-    svg {
-      left: rem(-9);
-    }
+  &.action-big {
+    height: rem(40);
+    width: 100%;
+    font-size: rem(13);
+    line-height: div(18, 13);
   }
 }
 
-button.navigation-button[disabled],
-a.navigation-button:not([href]) {
+button.control-button:disabled {
+  background: var(--fill-color-quaternary);
   color: var(--label-color-tertiary);
 }
 </style>
