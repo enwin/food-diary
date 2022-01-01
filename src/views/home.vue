@@ -1,6 +1,7 @@
 <template>
   <main id="home">
     <navigation-bar>
+      <template #title>FoodDi</template>
       <template #right>
         <cta-icon label="Add" :to="{ name: 'Add' }">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
@@ -43,3 +44,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+#home {
+  .navigation-bar {
+    .title {
+      visibility: hidden;
+    }
+  }
+}
+</style>

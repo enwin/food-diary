@@ -27,17 +27,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-#home {
-  height: 100vh;
-
-  .content {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 rem(40);
-  }
-}
-</style>
