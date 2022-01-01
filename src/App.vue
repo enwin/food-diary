@@ -124,5 +124,17 @@ body {
 #app {
   min-height: 100%;
 }
+
+@media (display-mode: standalone) {
+  html,
+  body {
+    height: 100vh;
+  }
+
+  #app {
+    position: fixed;
+    width: 100%;
+  }
+}
 </style>
 
