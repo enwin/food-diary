@@ -116,7 +116,6 @@ export default {
   flex-direction: column;
   min-height: 100%;
   outline: none;
-  padding-top: env(safe-area-inset-top);
   position: relative;
   transform-origin: 50% 0;
   transition: all $duration $easing;

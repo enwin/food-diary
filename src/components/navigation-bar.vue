@@ -63,14 +63,17 @@ export default {
 $top: rem(6);
 
 .navigation-bar {
-  background-color: var(--background-chrome-navigation);
   border-radius: 10px 10px 0 0;
   font-size: rem(17);
   line-height: div(22, 17);
   overflow: hidden;
   padding-bottom: 1px;
-  padding-top: $top;
+  padding-top: calc(#{$top} + env(safe-area-inset-top));
   position: relative;
+
+  .mode-overlay & {
+    padding-top: $top;
+  }
 
   .controls {
     color: var(--color-accent);
