@@ -96,6 +96,7 @@ export default {
 
   input[type='radio'] {
     appearance: none;
+    position: absolute;
 
     &:checked {
       & ~ svg {
