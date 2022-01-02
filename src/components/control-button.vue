@@ -68,11 +68,10 @@ export default {
   border-width: 0;
   color: var(--label-color-primary);
   display: inline-flex;
-  font-size: rem(15);
   font-weight: bold;
   font: -apple-system-headline;
+  @include title-level(17, 22);
   justify-content: center;
-  line-height: div(22, 15);
   padding: 0 rem(16);
   text-decoration: none;
   text-transform: uppercase;

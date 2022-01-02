@@ -108,13 +108,10 @@ export default {
 }
 
 body {
-  font-size: 1rem;
-}
-
-body {
   background-color: var(--background-color);
   color: var(--label-color-primary);
   font: -apple-system-body;
+  font-size: 1rem;
   font-family: Helvetica, sans-serif;
   transition: background-color 0s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s;
   width: 100%;

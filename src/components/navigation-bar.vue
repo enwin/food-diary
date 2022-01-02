@@ -102,7 +102,9 @@ $top: rem(6);
   }
 
   .title {
+    font: -apple-system-headline;
     font-weight: bold;
+    @include title-level(17, 22);
   }
 
   &:not(.large) {

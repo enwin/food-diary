@@ -111,10 +111,9 @@ export default {
   border-radius: 5px;
   color: var(--color-accent);
   display: flex;
-  font-size: rem(16);
   font: -apple-system-headline;
+  @include title-level(17, 22);
   height: rem(44);
-  line-height: div(22, 15);
   padding: 0 rem(6);
   position: relative;
   text-decoration: none;
