@@ -13,6 +13,7 @@
       <form-group legend="Details" compressed>
         <input-text
           v-model="name"
+          v-autofocus
           variant="placeholder"
           label="Meal"
           name="name"
