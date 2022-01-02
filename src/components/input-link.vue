@@ -9,8 +9,8 @@
         />
       </svg>
     </span>
+    <input v-model="value" type="hidden" v-bind="$attrs" />
   </router-link>
-  <input v-model="value" type="hidden" v-bind="$attrs" />
 </template>
 
 <script>
@@ -53,8 +53,11 @@ export default {
 .input-link {
   align-items: center;
   display: flex;
+  font-size: rem(14);
   height: rem(45);
   justify-content: space-between;
+  line-height: div(19, 14);
+  padding-top: rem(1);
   padding: 0 rem(16);
   text-decoration: none;
   vertical-align: middle;

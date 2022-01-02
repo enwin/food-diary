@@ -107,9 +107,12 @@ $height: rem(45);
   --color-placeholder: var(--label-color-tertiary);
   align-items: center;
   display: flex;
+  font-size: rem(14);
   height: $height;
   justify-content: space-between;
+  line-height: div(19, 14);
   padding-left: rem(16);
+  padding-top: rem(1);
   position: relative;
 
   input {

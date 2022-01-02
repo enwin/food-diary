@@ -86,7 +86,6 @@ export default {
 .radio-group-radio {
   display: flex;
   position: relative;
-  // width: 100%;
 
   &:not(:last-child) {
     label {
@@ -108,9 +107,12 @@ export default {
   label {
     align-items: center;
     display: flex;
+    font-size: rem(14);
     height: rem(45);
-    padding-right: rem(16);
+    line-height: div(19, 14);
     margin-left: rem(16);
+    padding-right: rem(16);
+    padding-top: rem(1);
     width: 100%;
   }
 

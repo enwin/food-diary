@@ -51,8 +51,11 @@ export default {
   align-items: center;
   border-radius: 10px;
   display: flex;
+  font-size: rem(14);
   height: rem(45);
   justify-content: space-between;
+  line-height: div(19, 14);
+  padding-top: rem(1);
   padding: 0 rem(16);
   text-decoration: none;
   vertical-align: middle;
