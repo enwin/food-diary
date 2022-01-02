@@ -50,8 +50,11 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      loading: false,
     };
+  },
+  computed: {
+    ...mapState(userStore, ['access_token']),
   },
   created() {
     if (this.access_token && !this.loading) {
@@ -59,7 +62,6 @@ export default {
     }
   },
   methods: {
-    ...mapState(userStore, ['access_token']),
     async dropbox() {
       const authUrl = await getAuthUrl();
 
