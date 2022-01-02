@@ -10,14 +10,4 @@ app.use(store);
 
 app.config.devtools = import.meta.env.MODE === 'development';
 
-app.directive('autofocus', {
-  mounted(el) {
-    const focussable = el.querySelector('input, textarea');
-
-    if (focussable) {
-      focussable.focus();
-    }
-  },
-});
-
 app.mount('#app');
