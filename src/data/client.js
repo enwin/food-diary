@@ -1,6 +1,10 @@
 import { Dropbox } from 'dropbox';
 import { userStore } from '../store/user';
 
+const rootUrl = import.meta.env.PROD
+  ? 'https://fooddi.netlify.app'
+  : 'http://localhost:3000';
+
 let client;
 
 const listFolder = () => {
@@ -73,12 +77,10 @@ export const getClient = () => {
 export const getAuthUrl = () => {
   const client = getClient();
 
-  return client.auth
-    .getAuthenticationUrl('http://localhost:3000/auth')
-    .catch((error) => {
-      console.warn(error);
-      return false;
-    });
+  return client.auth.getAuthenticationUrl(`${rootUrl}/auth`).catch((error) => {
+    console.warn(error);
+    return false;
+  });
 };
 
 export const getData = async (name) => {
