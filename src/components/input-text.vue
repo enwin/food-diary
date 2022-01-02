@@ -179,6 +179,7 @@ $height: rem(45);
   svg {
     color: var(--label-color-secondary);
     margin-right: rem(22);
+    vertical-align: middle;
     width: rem(14);
   }
 }
