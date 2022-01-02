@@ -42,7 +42,7 @@ export default {
     variant: {
       type: String,
       default: 'label',
-      validate(value) {
+      validator(value) {
         return inputModes.includes(value);
       },
     },

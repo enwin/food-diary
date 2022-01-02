@@ -28,7 +28,7 @@ export default {
     direction: {
       type: String,
       default: '',
-      validate(value) {
+      validator(value) {
         return directions.includes(value);
       },
     },
