@@ -61,7 +61,7 @@ export default {
       };
     },
     mealLabel() {
-      return mealTypes[this.effect];
+      return mealTypes[this.type];
     },
   },
 };

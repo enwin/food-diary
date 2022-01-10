@@ -78,8 +78,8 @@ export const mealsStore = defineStore('meals', {
 
       dateMeals.push(meal);
 
-      dateMeals.sort((currentMeal, nextMeal) =>
-        currentMeal.type.localCompare(nextMeal.type)
+      dateMeals.sort(
+        (currentMeal, nextMeal) => currentMeal.type - nextMeal.type
       );
 
       this.meals[date] = dateMeals;
