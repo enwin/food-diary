@@ -14,14 +14,32 @@
     </navigation-bar>
 
     <div class="content">
-      <ul>
-        <li v-for="meal in meals" :key="meal.name">{{ meal.name }}</li>
-      </ul>
+      <section
+        v-for="(entry, index) in list"
+        :key="entry.key"
+        class="table-list"
+      >
+        <h1
+          :ref="setTitles"
+          class="table-list-header"
+          :class="titleClasses[index]"
+        >
+          {{ entry.day }}
+        </h1>
+        <ul>
+          <meal-entry
+            v-for="meal in entry.meals"
+            :key="meal.id"
+            v-bind="meal"
+          />
+        </ul>
+      </section>
     </div>
   </main>
 </template>
 <script>
 import CtaIcon from '../components/cta-icon.vue';
+import MealEntry from '../components/meal-entry.vue';
 import NavigationBar from '../components/navigation-bar.vue';
 import { userStore } from '../store/user';
 import { mealsStore } from '../store/meals';
@@ -31,16 +49,33 @@ export default {
   name: 'HomePage',
   components: {
     CtaIcon,
+    MealEntry,
     NavigationBar,
+  },
+  data() {
+    return {
+      titleRefs: [],
+      titleClasses: ['current sticky'],
+    };
   },
   computed: {
     ...mapState(userStore, ['access_token', 'account_id']),
-    ...mapState(mealsStore, ['meals']),
+    ...mapState(mealsStore, ['list']),
   },
   created() {
     if (!this.access_token) {
       this.$router.replace({ name: 'Login' });
     }
+  },
+  beforeUpdate() {
+    this.titleRefs = [];
+  },
+  methods: {
+    setTitles(el) {
+      if (el) {
+        this.titleRefs.push(el);
+      }
+    },
   },
 };
 </script>
@@ -48,9 +83,35 @@ export default {
 <style lang="scss">
 #home {
   .navigation-bar {
+    background-color: var(--fill-color-quaternary);
+
     .title {
       visibility: hidden;
     }
+  }
+}
+.table-list-header {
+  position: sticky;
+  top: 0;
+  font: -apple-system-headline;
+  @include title-level(12, 22);
+  padding: 0 rem(16) 1px;
+  margin-bottom: 1px;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    display: block;
+    margin-bottom: -2px;
+    border-bottom: 1px solid var(--separator-color-opaque);
+  }
+
+  &.current {
+    color: var(--color-theme);
+  }
+
+  &.sticky {
+    background-color: var(--fill-color-quaternary);
   }
 }
 </style>

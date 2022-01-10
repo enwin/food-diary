@@ -5,6 +5,7 @@ import { addMeal } from './store/meal';
 import Home from './views/home.vue';
 import Auth from './views/auth.vue';
 import Add from './views/add.vue';
+import View from './views/view.vue';
 import Login from './views/login.vue';
 import ModalSelect from './views/modal-select.vue';
 
@@ -43,6 +44,15 @@ const routes = [
         meta: {
           mode: 'overlay',
           store: addMeal,
+        },
+      },
+      {
+        path: 'view/:id',
+        component: Add,
+        name: 'View',
+        props: true,
+        meta: {
+          mode: 'overlay',
         },
       },
     ],

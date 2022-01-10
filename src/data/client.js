@@ -45,7 +45,7 @@ const upload = ({ name, content }) => {
   });
 
   return client
-    .filesUpload({ path: `/${file.name}`, contents: file })
+    .filesUpload({ path: `/${file.name}`, contents: file, mode: 'overwrite' })
     .then(() => {
       return content;
     })
@@ -92,8 +92,14 @@ export const getData = async (name) => {
 
   // create a base file if it doesn't exist
   if (!data) {
-    data = await upload({ name: fileName, content: [] });
+    data = await upload({ name: fileName, content: {} });
   }
 
   return data;
+};
+
+export const setData = async (name, data) => {
+  const fileName = `${name}.json`;
+
+  await upload({ name: fileName, content: data });
 };

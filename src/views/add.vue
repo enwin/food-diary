@@ -3,13 +3,13 @@
     <navigation-bar>
       <template #title>{{ title }}</template>
       <template #left>
-        <control-button @click="cancel">Cancel</control-button>
+        <control-button @click="close">Cancel</control-button>
       </template>
       <template #right>
-        <control-button :disabled="true" @click="add">Add</control-button>
+        <control-button :disabled="!name" @click="add">Add</control-button>
       </template>
     </navigation-bar>
-    <form>
+    <form ref="form">
       <form-group legend="Details" compressed>
         <input-text
           v-model="name"
@@ -26,11 +26,11 @@
       </form-group>
       <form-group legend="Effect" compressed>
         <input-link
-          v-model="swallowing"
+          v-model="swallowingLevel"
           :label="effectLabel"
           :label-value="swallowing"
           :to="effectLink"
-          name="type"
+          name="effect"
         />
       </form-group>
       <form-group legend="Time" compressed>
@@ -56,6 +56,7 @@ import InputText from '../components/input-text.vue';
 import FormGroup from '../components/form-group.vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import { mealsStore } from '../store/meals';
 
 export default {
   name: 'AddScreen',
@@ -128,9 +129,14 @@ export default {
   },
   methods: {
     add() {
-      this.cancel();
+      const formData = new FormData(this.$refs.form);
+      const meals = mealsStore();
+
+      meals.save(Object.fromEntries(formData));
+
+      this.close();
     },
-    cancel() {
+    close() {
       if (navigator.standalone) {
         this.$router.replace({
           name: 'Home',
