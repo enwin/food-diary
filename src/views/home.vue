@@ -13,17 +13,9 @@
       </template>
     </navigation-bar>
 
-    <div class="content">
-      <section
-        v-for="(entry, index) in list"
-        :key="entry.key"
-        class="table-list"
-      >
-        <h1
-          :ref="setTitles"
-          class="table-list-header"
-          :class="titleClasses[index]"
-        >
+    <div ref="content" class="content">
+      <section v-for="entry in list" :key="entry.key" class="table-list">
+        <h1 :ref="setTitles" class="table-list-header">
           {{ entry.day }}
         </h1>
         <ul>
@@ -55,7 +47,8 @@ export default {
   data() {
     return {
       titleRefs: [],
-      titleClasses: ['current sticky'],
+      titleClasses: [],
+      today: new Date().toISOString().split('T')[0],
     };
   },
   computed: {
@@ -67,13 +60,51 @@ export default {
       this.$router.replace({ name: 'Login' });
     }
   },
+  mounted() {
+    this.setObserver();
+    this.setClasses();
+  },
   beforeUpdate() {
+    if (this.observer) {
+      this.titleRefs.forEach((el) => {
+        this.observer.unobserve(el);
+      });
+    }
     this.titleRefs = [];
+    this.titleClasses = [];
   },
   methods: {
+    intersects(entries, observer) {
+      entries.forEach(({ target, intersectionRatio }) => {
+        target.classList.toggle('sticky', intersectionRatio < 1);
+      });
+    },
     setTitles(el) {
       if (el) {
         this.titleRefs.push(el);
+        this.observer.observe(el);
+        this.titleClasses.push('');
+      }
+    },
+    setClasses() {
+      this.titleClasses = this.list.map(({ key }) => {
+        const classes = [];
+
+        if (key === this.today) {
+          classes.push('current');
+        }
+
+        return classes.join(' ');
+      });
+    },
+    setObserver() {
+      if (!this.observer) {
+        this.observer = new IntersectionObserver(this.intersects, {
+          root: this.$refs.content,
+          rootMargin: '-1px 0px 0px 0px',
+          threshold: [1],
+        });
+        window.titleObserver = this.observer;
       }
     },
   },
@@ -82,22 +113,32 @@ export default {
 
 <style lang="scss">
 #home {
+  height: 100vh;
+
   .navigation-bar {
     background-color: var(--fill-color-quaternary);
+    flex-shrink: 0;
 
     .title {
       visibility: hidden;
     }
   }
+
+  .content {
+    overflow: auto;
+  }
 }
 .table-list-header {
-  position: sticky;
-  top: 0;
+  backdrop-filter: blur(40px);
+  background-color: var(--background-color);
   font: -apple-system-headline;
-  @include title-level(12, 22);
-  padding: 0 rem(16) 1px;
+  @include title-level(11, 22);
   margin-bottom: 1px;
+  padding: 0 rem(16) 1px;
+  position: sticky;
   text-transform: uppercase;
+  top: 0;
+  z-index: 1;
 
   &::after {
     content: '';

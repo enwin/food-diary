@@ -9,8 +9,8 @@
       <div>
         <p class="meal-entry-title">{{ name }}</p>
         <p class="meal-entry-type">{{ mealLabel }}</p>
+        <p class="meal-entry-effect">{{ effectLabel }}</p>
       </div>
-      <p class="meal-entry-effect">{{ effectLabel }}</p>
       <a :href="href">View meal</a>
     </component>
   </router-link>
@@ -69,34 +69,44 @@ export default {
 
 <style lang="scss">
 .meal-entry {
-  display: flex;
-  padding: rem(8) rem(16);
+  padding: 0 rem(16);
 
-  &::before {
-    content: '';
-    width: 4px;
-    border-radius: 2px;
-    margin: rem(3) 0;
-    margin-right: rem(8);
-  }
-
-  &.effect-0::before {
+  &.effect-0 div::before {
     background-color: var(--color-green);
   }
-  &.effect-1::before {
+  &.effect-1 div::before {
     background-color: var(--color-yellow);
   }
-  &.effect-2::before {
+  &.effect-2 div::before {
     background-color: var(--color-orange);
   }
-  &.effect-3::before {
+  &.effect-3 div::before {
     background-color: var(--color-red);
   }
 
+  &:not(:last-child) div {
+    border-bottom: 1px solid var(--separator-color-opaque);
+  }
+
   div {
-    overflow: hidden;
-    width: 100%;
-    padding-right: rem(8);
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: 1fr 1fr;
+    column-gap: rem(16);
+    margin-left: rem(12);
+    padding: rem(10) 0;
+
+    position: relative;
+
+    &::before {
+      content: '';
+      width: rem(4);
+      border-radius: 2px;
+      margin: rem(10 + 3) 0;
+      position: absolute;
+
+      inset: 0 0 0 rem(-12);
+    }
   }
 
   p {
@@ -113,15 +123,20 @@ export default {
 .meal-entry-title {
   font: -apple-system-headline;
   @include title-level(15, 20);
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
 
 .meal-entry-type {
   color: var(--label-color-secondary);
   @include title-level(13, 18);
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 }
 
 .meal-entry-effect {
-  flex-shrink: 0;
   @include title-level(14, 19);
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 </style>

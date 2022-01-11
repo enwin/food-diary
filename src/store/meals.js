@@ -34,6 +34,16 @@ const listMeals = (meals) => {
   });
 };
 
+const sortedObject = (mealsArray) => {
+  const mealsObject = {};
+
+  mealsArray.forEach(([key, value]) => {
+    mealsObject[key] = value;
+  });
+
+  return mealsObject;
+};
+
 export const mealsStore = defineStore('meals', {
   state: () => {
     const store = {
@@ -68,13 +78,21 @@ export const mealsStore = defineStore('meals', {
 
       console.log(meal);
 
-      let dateMeals;
+      // transform into an array so we can sort it if needed
+      const meals = Object.entries(this.meals);
+      const dateMealsIndex = meals.findIndex(([mealDate]) => mealDate === date);
+      let mealData = meals[dateMealsIndex];
 
-      if (!this.meals[date]) {
-        dateMeals = [];
-      } else {
-        dateMeals = [...this.meals[date]];
+      if (!mealData) {
+        mealData = [date, []];
+        meals.push(mealData);
+        // add the new date and reorder the array
+        meals.sort(([currentDate], [nextDate]) =>
+          nextDate.localeCompare(currentDate)
+        );
       }
+
+      const [, dateMeals] = mealData;
 
       dateMeals.push(meal);
 
@@ -82,7 +100,9 @@ export const mealsStore = defineStore('meals', {
         (currentMeal, nextMeal) => currentMeal.type - nextMeal.type
       );
 
-      this.meals[date] = dateMeals;
+      mealData.splice(1, 1, dateMeals);
+
+      this.meals = sortedObject(meals);
 
       setData('meals', this.meals)
         .then(() => {
